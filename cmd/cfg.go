@@ -8,15 +8,24 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // cfgCmd represents the cfg command
 var cfgCmd = &cobra.Command{
 	Use:   "cfg",
 	Short: "View the configuration parameters detected by flags and Viper",
-	Long: `Use this command to ensure configuration variables are set correctly.`,
+	Long:  `Use this command to ensure configuration variables are set correctly.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("cfg called")
+		if governor != "" {
+			fmt.Println("Governor:", governor)
+		} else {
+			if gov := viper.GetString("governor"); gov != "" {
+				fmt.Println("Governor:", gov)
+			} else {
+				fmt.Println("No governor specified")
+			}
+		}
 	},
 }
 
