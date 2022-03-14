@@ -40,6 +40,19 @@ func Get(path string, result interface{}) error {
 		return err
 	}
 
+	errorResp := ErrorResponse{}
+	err = json.Unmarshal(bytes, &errorResp)
+
+	if err != nil {
+		// If we can't unmarshal the error response, we can't determine if it's an error or not.
+	}
+
+	if errorResp.Type != "" {
+		for _, value := range errorResp.Detail {
+			return fmt.Errorf("%s: %s", errorResp.Type, value[0])
+		}
+	}
+
 	if resp.StatusCode != http.StatusOK {
 		return errors.New(string(bytes))
 	}
