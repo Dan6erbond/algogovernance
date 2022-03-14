@@ -1,6 +1,9 @@
 package rewards
 
-import "github.com/Dan6erbond/algogovernance/pkg/client"
+import (
+	"github.com/Dan6erbond/algogovernance/pkg/client"
+	"github.com/Dan6erbond/algogovernance/pkg/constants"
+)
 
 func GetRewards(periodSlug string, governorAddress string) (result float64, err error) {
 	period, err := client.GetPeriod(periodSlug)
