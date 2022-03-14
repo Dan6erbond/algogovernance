@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -16,8 +17,12 @@ const (
 	ALGORAND_GOVERNANCE_GOVERNORS_PATH     = "periods/%s/governors/%s/status"
 )
 
-func Get(path string, result interface{}) error {
+func Get(path string, query url.Values, result interface{}) error {
 	url := ALGORAND_GOVERNANCE_API_URL + path
+
+	if query.Encode() != "" {
+		url += "?" + query.Encode()
+	}
 
 	req, err := http.NewRequest("GET", url, nil)
 
@@ -62,26 +67,33 @@ func Get(path string, result interface{}) error {
 	return err
 }
 
-func GetPeriods() (result Periods, err error) {
-	err = Get(ALGORAND_GOVERNANCE_PERIODS_PATH, &result)
+func GetPeriods(limit, offset string) (result Periods, err error) {
+	query := url.Values{}
+	if limit != "" {
+		query.Add("limit", limit)
+	}
+	if offset != "" {
+		query.Add("offset", offset)
+	}
+	err = Get(ALGORAND_GOVERNANCE_PERIODS_PATH, query, &result)
 
 	return result, err
 }
 
 func GetPeriod(periodSlug string) (result GovernancePeriod, err error) {
-	err = Get(fmt.Sprintf(ALGORAND_GOVERNANCE_PERIOD_PATH, periodSlug), &result)
+	err = Get(fmt.Sprintf(ALGORAND_GOVERNANCE_PERIOD_PATH, periodSlug), nil, &result)
 
 	return result, err
 }
 
 func GetActivePeriod() (result GovernancePeriod, err error) {
-	err = Get(ALGORAND_GOVERNANCE_ACTIVE_PERIOD_PATH, &result)
+	err = Get(ALGORAND_GOVERNANCE_ACTIVE_PERIOD_PATH, nil, &result)
 
 	return result, err
 }
 
 func GetGovernors(periodSlug string, governor string) (result Governors, err error) {
-	err = Get(fmt.Sprintf(ALGORAND_GOVERNANCE_GOVERNORS_PATH, periodSlug, governor), &result)
+	err = Get(fmt.Sprintf(ALGORAND_GOVERNANCE_GOVERNORS_PATH, periodSlug, governor), nil, &result)
 
 	return result, err
 }
