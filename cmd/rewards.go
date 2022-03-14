@@ -9,8 +9,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/Dan6erbond/algogovernance/internal/algogovernance"
-	"github.com/Dan6erbond/algogovernance/pkg"
+	"github.com/Dan6erbond/algogovernance/pkg/client"
+	algoRewards "github.com/Dan6erbond/algogovernance/pkg/rewards"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -19,7 +19,7 @@ import (
 var rewardsCmd = &cobra.Command{
 	Use:   "rewards",
 	Short: "Get the rewards for a selected governor and period",
-	Long: `Use this command to view the expected rewards for a governor's wallet address in a governance period.`,
+	Long:  `Use this command to view the expected rewards for a governor's wallet address in a governance period.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		period := cmd.Flag("period").Value.String()
 		if governor == "" {
@@ -29,24 +29,24 @@ var rewardsCmd = &cobra.Command{
 			log.Fatalf("Governor address is required, try again by setting it in the .env file or using the -g flag.")
 		}
 		var (
-			governancePeriod algogovernance.GovernancePeriod
+			governancePeriod client.GovernancePeriod
 			rewards          float64
 			err              error
 		)
 		if period == "" {
-			governancePeriod, err = algogovernance.GetActivePeriod()
+			governancePeriod, err = client.GetActivePeriod()
 		} else {
 			if !strings.HasPrefix(period, "governance-period-") {
 				period = "governance-period-" + period
 			}
-			governancePeriod, err = algogovernance.GetPeriod(period)
+			governancePeriod, err = client.GetPeriod(period)
 		}
 
 		if err != nil {
 			log.Fatalf("Error getting active period: %s", err)
 		}
 
-		rewards, err = pkg.GetRewardsForPeriod(governancePeriod, governor)
+		rewards, err = algoRewards.GetRewardsForPeriod(governancePeriod, governor)
 
 		if err != nil {
 			log.Fatalf("Error getting active period: %s", err)

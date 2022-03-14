@@ -1,4 +1,4 @@
-package algogovernance
+package client
 
 import "time"
 

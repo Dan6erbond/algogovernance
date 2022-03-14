@@ -1,11 +1,9 @@
-package pkg
+package rewards
 
-import (
-	"github.com/Dan6erbond/algogovernance/internal/algogovernance"
-)
+import "github.com/Dan6erbond/algogovernance/pkg/client"
 
 func GetRewards(periodSlug string, governorAddress string) (result float64, err error) {
-	period, err := algogovernance.GetPeriod(periodSlug)
+	period, err := client.GetPeriod(periodSlug)
 
 	if err != nil {
 		return 0, err
@@ -15,7 +13,7 @@ func GetRewards(periodSlug string, governorAddress string) (result float64, err 
 }
 
 func GetRewardsForCurrentPeriod(governorAddress string) (result float64, err error) {
-	period, err := algogovernance.GetActivePeriod()
+	period, err := client.GetActivePeriod()
 
 	if err != nil {
 		return 0, err
@@ -24,14 +22,14 @@ func GetRewardsForCurrentPeriod(governorAddress string) (result float64, err err
 	return GetRewardsForPeriod(period, governorAddress)
 }
 
-func GetRewardsForPeriod(period algogovernance.GovernancePeriod, governorAddress string) (result float64, err error) {
-	governor, err := algogovernance.GetGovernors(period.Slug, governorAddress)
+func GetRewardsForPeriod(period client.GovernancePeriod, governorAddress string) (result float64, err error) {
+	governor, err := client.GetGovernors(period.Slug, governorAddress)
 
 	if err != nil {
 		return 0, err
 	}
 	result = float64(governor.Governor.CommittedAlgoAmount) / period.TotalCommittedStake * float64(period.AlgoAmountInRewardPool)
-	result = result * MICRO_ALGO
+	result = result * constants.MICRO_ALGO
 
 	return result, err
 }

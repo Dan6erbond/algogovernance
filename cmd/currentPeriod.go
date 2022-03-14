@@ -9,8 +9,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/Dan6erbond/algogovernance/internal/algogovernance"
-	"github.com/Dan6erbond/algogovernance/pkg"
+	"github.com/Dan6erbond/algogovernance/pkg/client"
+	algoRewards "github.com/Dan6erbond/algogovernance/pkg/rewards"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -23,7 +23,7 @@ var currentPeriodCmd = &cobra.Command{
 
 	Also shows governance rewards if a governor is configured in configuration files or via the -g flag.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		activePeriod, err := algogovernance.GetActivePeriod()
+		activePeriod, err := client.GetActivePeriod()
 
 		if err != nil {
 			log.Fatalf("Error getting rewards for governor: %s %s", governor, err)
@@ -37,7 +37,7 @@ var currentPeriodCmd = &cobra.Command{
 			governor = viper.GetString("governor")
 		}
 		if governor != "" {
-			rewards, err := pkg.GetRewardsForPeriod(activePeriod, governor)
+			rewards, err := algoRewards.GetRewardsForPeriod(activePeriod, governor)
 			if err != nil {
 				log.Fatalf("Error getting rewards for governor: %s %s", governor, err)
 			}
