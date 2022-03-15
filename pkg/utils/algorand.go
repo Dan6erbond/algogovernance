@@ -1,0 +1,7 @@
+package utils
+
+import "github.com/Dan6erbond/algogovernance/pkg/constants"
+
+func MicroAlgoToAlgo(microAlgo float64) float64 {
+	return microAlgo * constants.MICRO_ALGO
+}

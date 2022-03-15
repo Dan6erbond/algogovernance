@@ -11,6 +11,7 @@ import (
 
 	"github.com/Dan6erbond/algogovernance/pkg/client"
 	algoRewards "github.com/Dan6erbond/algogovernance/pkg/rewards"
+	"github.com/Dan6erbond/algogovernance/pkg/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -29,7 +30,7 @@ var rewardsCmd = &cobra.Command{
 			log.Fatalf("Governor address is required, try again by setting it in the .env file or using the -g flag.")
 		}
 		var (
-			governancePeriod client.GovernancePeriod
+			governancePeriod client.Period
 			rewards          float64
 			err              error
 		)
@@ -52,7 +53,7 @@ var rewardsCmd = &cobra.Command{
 			log.Fatalf("Error getting active period: %s", err)
 		}
 
-		fmt.Printf("Expected rewards: %.5f ALGO\n", rewards)
+		fmt.Printf("Expected rewards: %.2f ALGO\n", utils.MicroAlgoToAlgo(rewards))
 	},
 }
 

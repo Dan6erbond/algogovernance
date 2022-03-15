@@ -11,6 +11,7 @@ import (
 
 	"github.com/Dan6erbond/algogovernance/pkg/client"
 	algoRewards "github.com/Dan6erbond/algogovernance/pkg/rewards"
+	"github.com/Dan6erbond/algogovernance/pkg/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -30,7 +31,7 @@ var currentPeriodCmd = &cobra.Command{
 		}
 
 		fmt.Printf("Governance period: %s\n", strings.TrimPrefix(activePeriod.Slug, "governance-period-"))
-		fmt.Printf("Total locked stake: %.5f ALGO", activePeriod.TotalCommittedStake)
+		fmt.Printf("Total locked stake: %.2f ALGO", utils.MicroAlgoToAlgo(activePeriod.TotalCommittedStake))
 		fmt.Printf("\nRegistration end: %s\n", activePeriod.RegistrationEndDatetime)
 
 		if governor == "" {
@@ -41,7 +42,7 @@ var currentPeriodCmd = &cobra.Command{
 			if err != nil {
 				log.Fatalf("Error getting rewards for governor: %s %s", governor, err)
 			}
-			fmt.Printf("Expected rewards: %.5f ALGO\n", rewards)
+			fmt.Printf("Expected rewards: %.2f ALGO\n", utils.MicroAlgoToAlgo(rewards))
 		}
 	},
 }
