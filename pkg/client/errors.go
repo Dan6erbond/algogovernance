@@ -3,7 +3,9 @@ package client
 import "errors"
 
 var (
+	// ErrNoNext is returned when there is no next page of results.
 	ErrNoNext     = errors.New("no next page")
+	// ErrNoPrevious is returned when there is no previous page of results.
 	ErrNoPrevious = errors.New("no previous page")
 )
 
