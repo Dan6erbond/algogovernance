@@ -2,6 +2,7 @@ package client
 
 import "time"
 
+// Transaction represents a transaction in the Algorand blockchain.
 type Transaction struct {
 	ID               string                      `json:"id"`
 	TransactionID    string                      `json:"transaction_id"`
@@ -10,6 +11,7 @@ type Transaction struct {
 	GovernorActivity TransactionGovernorActivity `json:"governor_activity"`
 }
 
+// TransactionGovernorActivity includes information about the governor and the activity.
 type TransactionGovernorActivity struct {
 	ID               string      `json:"id"`
 	Governor         Governor    `json:"governor"`

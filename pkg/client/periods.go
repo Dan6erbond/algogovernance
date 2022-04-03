@@ -2,6 +2,8 @@ package client
 
 import "time"
 
+// Period represents a governance period and may not contain all fields depending on the endpoint used.
+// See more at https://governance.algorand.foundation/api/documentation/.
 type Period struct {
 	ID                      string          `json:"id"`
 	Title                   string          `json:"title"`
@@ -18,17 +20,20 @@ type Period struct {
 	VotingSessions          []VotingSession `json:"voting_sessions"`
 }
 
+// PeriodStatistics general statistics of the governance platform.
 type PeriodStatistics struct {
 	UniqueGovernorsCount    int      `json:"unique_governors_count"`
 	TotalRewardsDistributed float64  `json:"total_rewards_distributed"`
 	PastPeriods             []Period `json:"past_periods"`
 }
 
+// Periods containts a list of periods and can be paginated using cursor pagination.
 type Periods struct {
 	Pagination
 	Results []Period `json:"results"`
 }
 
+// GetNext returns the next page of results.
 func (p *Periods) GetNext() (result Periods, err error) {
 	if p.HasNext() {
 		err = Get(p.Next, &result)
@@ -38,6 +43,7 @@ func (p *Periods) GetNext() (result Periods, err error) {
 	return result, err
 }
 
+// GetPrevious returns the previous page of results.
 func (p *Periods) GetPrevious() (result Periods, err error) {
 	if p.HasPrevious() {
 		err = Get(p.Previous, &result)
@@ -47,11 +53,13 @@ func (p *Periods) GetPrevious() (result Periods, err error) {
 	return result, err
 }
 
+// PeriodGovernors contains a list of governors and pagination information.
 type PeriodGovernors struct {
 	Pagination
 	Results []Governor `json:"results"`
 }
 
+// GetNext returns the next page of results.
 func (p *PeriodGovernors) GetNext() (result PeriodGovernors, err error) {
 	if p.HasNext() {
 		err = Get(p.Next, &result)
@@ -61,6 +69,7 @@ func (p *PeriodGovernors) GetNext() (result PeriodGovernors, err error) {
 	return result, err
 }
 
+// GetPrevious returns the previous page of results.
 func (p *PeriodGovernors) GetPrevious() (result PeriodGovernors, err error) {
 	if p.HasPrevious() {
 		err = Get(p.Previous, &result)

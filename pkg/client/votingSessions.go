@@ -2,6 +2,7 @@ package client
 
 import "time"
 
+// VotingSession represents a voting session in the Algorand blockchain.
 type VotingSession struct {
 	ID                  int       `json:"id"`
 	Title               string    `json:"title"`
@@ -13,6 +14,7 @@ type VotingSession struct {
 	CooldownEndDatetime time.Time `json:"cooldown_end_datetime"`
 }
 
+// VotingSessionDetail contains additional details about a voting session as returned by the voting-sessions/%s endpoint.
 type VotingSessionDetail struct {
 	VotingSession
 	DescriptionHTML                     string    `json:"description_html"`
