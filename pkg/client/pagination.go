@@ -8,12 +8,12 @@ type Pagination struct {
 	Previous string `json:"previous"`
 }
 
-// HasNext() returns true if there is a next page of results.
+// HasNext returns true if there is a next page of results.
 func (p *Pagination) HasNext() bool {
 	return p.Next != ""
 }
 
-// HasPrevious() returns true if there is a previous page of results.
+// HasPrevious returns true if there is a previous page of results.
 func (p *Pagination) HasPrevious() bool {
 	return p.Previous != ""
 }

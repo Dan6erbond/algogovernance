@@ -81,7 +81,7 @@ type PeriodGovernorVotingSessionHistory struct {
 	Votes []PeriodGovernorVotes `json:"votes"`
 }
 
-// GovernorActivites represents a list of an Algorand Governor's activities.
+// GovernorActivities represents a list of an Algorand Governor's activities.
 // This includes votes and stake commitments.
 type GovernorActivities struct {
 	Pagination
