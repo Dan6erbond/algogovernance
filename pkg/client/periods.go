@@ -27,7 +27,7 @@ type PeriodStatistics struct {
 	PastPeriods             []Period `json:"past_periods"`
 }
 
-// Periods containts a list of periods and can be paginated using cursor pagination.
+// Periods contains a list of periods and can be paginated using cursor pagination.
 type Periods struct {
 	Pagination
 	Results []Period `json:"results"`
