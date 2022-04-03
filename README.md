@@ -1,5 +1,7 @@
 # `algogovernance`
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/Dan6erbond/algogovernance.svg)](https://pkg.go.dev/github.com/Dan6erbond/algogovernance)
+
 A Golang API wrapper for Algorand's Governance API and CLI tool.
 
 ## Installation
@@ -65,7 +67,7 @@ The CLI tool is built with Cobra and uses Viper configuration for governor walle
 
 ## Documentation
 
-
+The documentation is available at pkg.go.dev: [algogovernance command - github.com/Dan6erbond/algogovernance - pkg.go.dev](https://pkg.go.dev/github.com/Dan6erbond/algogovernance)
 
 ## License
 
