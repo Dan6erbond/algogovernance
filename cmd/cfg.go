@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"path"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -13,6 +15,14 @@ var cfgCmd = &cobra.Command{
 	Short: "View the configuration parameters detected by flags and Viper",
 	Long:  `Use this command to ensure configuration variables are set correctly.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if viper.ConfigFileUsed() != "" {
+			fmt.Printf("Loaded config from %s:\n", viper.ConfigFileUsed())
+		} else {
+			home, err := os.UserHomeDir()
+			cobra.CheckErr(err)
+			fmt.Printf("No config file found. Create one at %s.\n", path.Join(home, "algogovernance.yaml"))
+		}
+
 		if governor != "" {
 			fmt.Println("Governor:", governor)
 		} else {
