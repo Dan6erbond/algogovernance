@@ -71,11 +71,6 @@ The package also comes with helpers in the pkg/helpers folder to perform common 
 		address := "3RYOY2LTPC6GLT3ZYE4LUFGGAEMY7GRENZQO7RFNGK2LGCV77QNASK6C6Y"
 		rewards, _ := algoRewards.GetRewardsForCurrentPeriod(address)
 	}
-
-Links
-
-- Algorand Governance Platform API, https://governance.algorand.foundation/api/documentation
-- algogovernance command - github.com/Dan6erbond/algogovernance - pkg.go.dev, https://pkg.go.dev/github.com/Dan6erbond/algogovernance
 */
 package main
 
