@@ -75,5 +75,5 @@ This package is licensed under the [MIT license](./LICENSE).
 
 ## Links
 
- - [Algorand Governance Platform API](https://governance.algorand.foundation/api/documentation)
- - [algogovernance command - github.com/Dan6erbond/algogovernance - pkg.go.dev](https://pkg.go.dev/github.com/Dan6erbond/algogovernance)
+- [Algorand Governance Platform API](https://governance.algorand.foundation/api/documentation)
+- [algogovernance command - github.com/Dan6erbond/algogovernance - pkg.go.dev](https://pkg.go.dev/github.com/Dan6erbond/algogovernance)
